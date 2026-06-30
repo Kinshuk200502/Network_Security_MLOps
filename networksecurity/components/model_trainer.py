@@ -24,11 +24,10 @@ from sklearn.ensemble import (
     RandomForestClassifier,
 )
 import mlflow
-from urllib.parse import urlparse
+# from urllib.parse import urlparse
 
-#import dagshub
-#dagshub.init(repo_owner='krishnaik06', repo_name='networksecurity', mlflow=True)
-
+import dagshub
+dagshub.init(repo_owner='kinshukmishra2005', repo_name='Network_Security_MLOps', mlflow=True)
 # os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
 # os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
 # os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
@@ -48,7 +47,10 @@ class ModelTrainer:
     def track_mlflow(self,best_model,classificationmetric):
         # mlflow.set_registry_uri("https://dagshub.com/krishnaik06/networksecurity.mlflow")
         # tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+        print("Inside track_mlflow")
+        mlflow.set_experiment("NetworkSecurity")
         with mlflow.start_run():
+            print("Run Started")
             f1_score=classificationmetric.f1_score
             precision_score=classificationmetric.precision_score
             recall_score=classificationmetric.recall_score
@@ -58,7 +60,7 @@ class ModelTrainer:
             mlflow.log_metric("f1_score",f1_score)
             mlflow.log_metric("precision",precision_score)
             mlflow.log_metric("recall_score",recall_score)
-            mlflow.sklearn.log_model(best_model,"model")
+            mlflow.sklearn.log_model(best_model,name="model")
             # # Model registry does not work with file store
             # if tracking_url_type_store != "file":
 
@@ -122,7 +124,9 @@ class ModelTrainer:
         y_train_pred=best_model.predict(X_train)
 
         classification_train_metric=get_classification_score(y_true=y_train,y_pred=y_train_pred)
-        
+        print("Training completed")
+        print(best_model_name)
+        print(best_model)
         ## Track the experiements with mlflow
         self.track_mlflow(best_model,classification_train_metric)
 
@@ -138,7 +142,7 @@ class ModelTrainer:
         os.makedirs(model_dir_path,exist_ok=True)
 
         Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
-        save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+        save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
         #model pusher
         save_object("final_model/model.pkl",best_model)
         
