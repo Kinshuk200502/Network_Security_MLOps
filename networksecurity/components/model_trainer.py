@@ -28,9 +28,9 @@ import mlflow
 
 import dagshub
 dagshub.init(repo_owner='kinshukmishra2005', repo_name='Network_Security_MLOps', mlflow=True)
-# os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
-# os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
-# os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/kinshukmishra2005/Network_Security_MLOps.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="kinshukmishra2005"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="d9000c91b8f1d0a590ef333cb9ce51772f3e2351"
 
 
 
